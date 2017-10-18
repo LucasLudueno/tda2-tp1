@@ -42,8 +42,8 @@ std::vector<int> preprocess_string(std::string &t, int &k) {
 }
 
 int main(int argc, char *argv[]) {
-    if (argc < 2) {
-        std::cout << "Usage: dc3 <file>" << std::endl;
+    if (argc < 3) {
+        std::cout << "Usage: dc3 <in text file> <out sa file>" << std::endl;
         return 0;
     }
     std::ifstream file(argv[1]);
@@ -65,6 +65,10 @@ int main(int argc, char *argv[]) {
     std::vector<int> suffix_array = dc3(new_t, k);
     e = clock();
     std::cout << "Time to build suffix array = " << ((double) (e - s)) / CLOCKS_PER_SEC << " s" << std::endl;
+    std::ofstream sa_file(argv[2]);
+    for (int i = 0; i < suffix_array.size(); ++i) {
+        sa_file << suffix_array[i] << std::endl;
+    }
     std::string p;
     std::cout << "Pattern to search:";
     std::getline(std::cin, p);
