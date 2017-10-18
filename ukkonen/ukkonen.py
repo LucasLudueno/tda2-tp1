@@ -229,3 +229,6 @@ class Ukkonen:
     def match(self, patron):
         """ Busca que el patron exista en el String S """
         return self.match_sub_string(patron, self.root)
+
+    def name(self):
+        return "Ukkonen"

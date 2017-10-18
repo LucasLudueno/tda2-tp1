@@ -92,7 +92,6 @@ def compute_next(m, rmin, kmin, nd, nhdo, h):
     next[m] = nhdo[m - rmin[h[m-1]]]
     return next
 
-
 def colussi(T, P):
     i = j = last = nd = 0
     h = next = shift = []
@@ -123,3 +122,5 @@ class Colussi:
     def match(self, pattern):
         return colussi(self.text, pattern)
 
+    def name(self):
+        return "Colussi"
