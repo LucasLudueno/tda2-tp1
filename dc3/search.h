@@ -7,4 +7,6 @@ int _search(const std::vector<int> &d, const std::string &t, const std::string &
 
 std::vector<int> search(const std::vector<int> &d, const std::string &t, const std::string &p);
 
+std::vector<int> search2(const std::vector<int> &suffix_array, const std::string &t, const std::string &p);
+
 #endif //NEW_VERSION_SEARCH_H

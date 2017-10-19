@@ -74,7 +74,7 @@ int main(int argc, char *argv[]) {
     std::getline(std::cin, p);
     while (p != "") {
         s = clock();
-        std::vector<int> results = search(suffix_array, t, p);
+        std::vector<int> results = search2(suffix_array, t, p);
         e = clock();
         std::cout << "Time to search pattern = " << ((double) (e - s)) / CLOCKS_PER_SEC << " s" << std::endl;
         std::cout << "Found " << results.size() << " matches" << std::endl;

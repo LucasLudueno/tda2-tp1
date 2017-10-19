@@ -47,4 +47,4 @@ if result_col == result_dc3:
 		print(result_uko)
 		print("Test ERROR 1")
 else:
-	print("Test ERROR 2")	
+	print("Test ERROR 2")

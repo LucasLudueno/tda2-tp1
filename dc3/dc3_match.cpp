@@ -59,7 +59,7 @@ int main(int argc, char *argv[]) {
     std::vector<int> new_t = preprocess_string(t, k);
     std::vector<int> suffix_array = dc3(new_t, k);
     std::string p = argv[2];
-    std::vector<int> results = search(suffix_array, t, p);
+    std::vector<int> results = search2(suffix_array, t, p);
     std::ofstream results_file (argv[3]);
     for (int i = 0; i < results.size(); i++) {
         results_file << results[i] << std::endl;
