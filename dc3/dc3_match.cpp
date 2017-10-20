@@ -57,7 +57,11 @@ int main(int argc, char *argv[]) {
     t = buffer.str();
     int k;
     std::vector<int> new_t = preprocess_string(t, k);
+    clock_t s,e;
+    s = clock();
     std::vector<int> suffix_array = dc3(new_t, k);
+    e = clock();
+    std::cout << "Time to build suffix array = " << ((double)(e-s))/CLOCKS_PER_SEC << std::endl;
     std::string p = argv[2];
     std::vector<int> results = search2(suffix_array, t, p);
     std::ofstream results_file (argv[3]);
