@@ -61,10 +61,15 @@ int main(int argc, char *argv[]) {
     s = clock();
     std::vector<int> suffix_array = dc3(new_t, k);
     e = clock();
-    std::cout << "Time to build suffix array = " << ((double)(e-s))/CLOCKS_PER_SEC << std::endl;
+    double sa_time = ((double)(e-s))/CLOCKS_PER_SEC;
     std::string p = argv[2];
+    s = clock();
     std::vector<int> results = search2(suffix_array, t, p);
+    e = clock();
+    double search_time = ((double)(e-s))/CLOCKS_PER_SEC;
     std::ofstream results_file (argv[3]);
+    results_file << sa_time << std::endl;
+    results_file << search_time << std::endl;
     for (int i = 0; i < results.size(); i++) {
         results_file << results[i] << std::endl;
     }

@@ -61,7 +61,7 @@ std::vector<int> search2(const std::vector<int> &suffix_array, const std::string
     // En vez de buscar el primer match, y después recorrer a ambos lados linealmente para encontrar todos los matches,
     // como en "search", acá buscamos primero el inicio del intervalo de los matches, y después el final del intervalo.
     // Son sólo dos búsquedas binarias.
-    int n = t.size() - 1;
+    int n = t.size();
     int l = 0;
     int r = n;
     int mid;
@@ -78,15 +78,18 @@ std::vector<int> search2(const std::vector<int> &suffix_array, const std::string
     }
     int s = l;
     r = n;
+int last = -1;
     while (l < r) {
         // Con esto buscamos el final del intervalo
         mid = (l + r) / 2;
         if (p < t.substr(suffix_array[mid], p.size())) {
             // Si es menor o igual, nos quedamos con la parte izquierda
             r = mid;
+		last = 0;
         } else {
             // Si p es mayor, nos quedamos con la parte derecha
             l = mid + 1;
+last = 1;
         }
     }
     std::vector<int> result(suffix_array.begin() + s, suffix_array.begin() + r);
