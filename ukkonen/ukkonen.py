@@ -211,7 +211,11 @@ class Ukkonen:
         string_to_match = substr[:len(actual_node_string)]
 
         if string_to_match != actual_node_string:
-            return False
+            if actual_node_string[:len(substr)] != substr:
+                return False
+            else:
+                return True
+                
 
         substr = substr[len(actual_node_string):]
 
