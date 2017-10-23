@@ -38,11 +38,15 @@ def test_uko(filename, p):
     f = open(filename)
     t = f.read()
     alg2 = Ukkonen(t)
-    results = alg2.match(p)
     end = time.time()
     uko_time = end - start
-    print("Ukkonen -> ", str(end - start))
-    return uko_time, results
+
+    start = time.time()
+    results = alg2.match(p)
+    end = time.time()
+    search_time = end - start
+
+    return search_time, uko_time, results
 
 
 filenames = sys.argv[1:]
@@ -65,10 +69,9 @@ for filename in filenames:
         print("Testing Colussi ...")
         col_time, col_results = test_col(filename, p)
         print("Testing DC3 ...")
-        search_time, dc3_time, dc3_results = test_dc3(filename, p)
-        # print("Testing Ukkonen ...")
-        # uko_time, uko_results = test_uko(filename, p)
-        uko_time = 0.0
+        dc3_search_time, dc3_time, dc3_results = test_dc3(filename, p)
+        print("Testing Ukkonen ...")
+        uko_search_time, uko_time, uko_results = test_uko(filename, p)
 
         result = str(
             col_results == dc3_results)  # En lugar de esto que se fije si uko_results = col_results = dc3_results
