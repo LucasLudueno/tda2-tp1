@@ -1,0 +1,5 @@
+/home/lucas/git/tda2-tp1/dc3/CMakeFiles/rebuild_cache.dir
+/home/lucas/git/tda2-tp1/dc3/CMakeFiles/dc3.dir
+/home/lucas/git/tda2-tp1/dc3/CMakeFiles/dc3_match.dir
+/home/lucas/git/tda2-tp1/dc3/CMakeFiles/lcp.dir
+/home/lucas/git/tda2-tp1/dc3/CMakeFiles/edit_cache.dir

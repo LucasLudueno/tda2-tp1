@@ -60,7 +60,42 @@ filenames = [
     'files/rbs.txt',
     'files/stm2.txt',
     'files/tiger.txt',
-    'files/y.tab.txt'
+    'files/y.tab.txt',
+
+    'files/random_files/random_2chars_500000_1',
+    'files/random_files/random_5chars_500000_1',
+    'files/random_files/random_10chars_500000_1',
+    'files/random_files/random_25chars_500000_1',
+    'files/random_files/random_50chars_500000_1',
+    'files/random_files/random_75chars_500000_1',
+
+    'files/random_files/random_2chars_1000000_1',
+    'files/random_files/random_5chars_1000000_1',
+    'files/random_files/random_10chars_1000000_1',
+    'files/random_files/random_25chars_1000000_1',
+    'files/random_files/random_50chars_1000000_1',
+    'files/random_files/random_75chars_1000000_1',
+
+    'files/random_files/random_2chars_2000000_1',
+    'files/random_files/random_5chars_2000000_1',
+    'files/random_files/random_10chars_2000000_1',
+    'files/random_files/random_25chars_2000000_1',
+    'files/random_files/random_50chars_2000000_1',
+    'files/random_files/random_75chars_2000000_1'
+
+    # 'files/random_files/random_2chars_4000000_1',
+    # 'files/random_files/random_5chars_4000000_1',
+    # 'files/random_files/random_10chars_4000000_1',
+    # 'files/random_files/random_25chars_4000000_1',
+    # 'files/random_files/random_50chars_4000000_1',
+    # 'files/random_files/random_75chars_4000000_1',
+
+    # 'files/random_files/random_2chars_800000_1',
+    # 'files/random_files/random_5chars_800000_1',
+    # 'files/random_files/random_10chars_800000_1',
+    # 'files/random_files/random_25chars_800000_1',
+    # 'files/random_files/random_50chars_800000_1',
+    # 'files/random_files/random_75chars_800000_1'
 ]
 lengths = [5, 10, 25, 50, 75, 100, 200]  # largo de los patrones a testear
 out = open("out.csv", 'w')  # csv output
@@ -123,6 +158,6 @@ for filename in filenames:
             "{0:.5f}".format(dc3_time) + "\t" +
             "{0:.5f}".format(dc3_search_time) + "\t" +
             str(col_results == dc3_results) + "\t" +
-            str(len(p)) + "\t" # ESTE TRANSLATE SACA LOS \t Y \n, HABRIA QUE SACARLOS EN LOS ARCHIVOS MEJOR
+            str(len(p)) + "\t" # porque al imprimir todos los caracteres, habias /n y /t y se desformateaba el archivo
         )
         out.write("\n")

@@ -1,0 +1,1 @@
+/usr/bin/c++  -O3   CMakeFiles/lcp.dir/lcp.cpp.o  -o lcp 

@@ -1,0 +1,1 @@
+/usr/bin/c++  -O3   CMakeFiles/dc3.dir/main.cpp.o CMakeFiles/dc3.dir/search.cpp.o CMakeFiles/dc3.dir/dc3.cpp.o  -o dc3 
