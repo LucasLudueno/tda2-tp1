@@ -41,18 +41,47 @@ def test_uko(filename, p):
     end = time.time()
     uko_time = end - start
 
-    start = time.time()
+    start_again = time.time()
     results = alg2.match(p)
-    end = time.time()
-    search_time = end - start
+    end_again = time.time()
+    search_time = end_again - start_again
 
     return search_time, uko_time, results
 
 
-filenames = sys.argv[1:]
+# filenames = sys.argv[1:]
+filenames = [
+    'files/ailing.txt',
+    'files/bluekite.txt',
+    'files/egmf.txt',
+    'files/hprt.txt',
+    'files/index.txt',
+    'files/random.txt',
+    'files/rbs.txt',
+    'files/stm2.txt',
+    'files/tiger.txt',
+    'files/y.tab.txt'
+]
 lengths = [5, 10, 25, 50, 75, 100, 200]  # largo de los patrones a testear
 out = open("out.csv", 'w')  # csv output
 import os
+
+# escribimos el header del archivo csv con los resultados
+out.write(
+    "Archivo" + "\t" +
+    "Tamaño" + "\t" +
+    "No se que" + "\t" +
+    "Colussi Total" + "\t" +
+    "Ukkonen Total" + "\t" +
+    "Ukkonen constr" + "\t" +
+    "Ukkonen match" + "\t" +
+    "DC3 Total" + "\t" +
+    "DC3 constr" + "\t" +
+    "DC3 match" + "\t" +
+    "Resultado" + "\t" +
+    "Patron" + "\t" +
+    "\n"
+)
 
 for filename in filenames:
     print("\n\n")
@@ -73,10 +102,27 @@ for filename in filenames:
         print("Testing Ukkonen ...")
         uko_search_time, uko_time, uko_results = test_uko(filename, p)
 
-        result = str(
-            col_results == dc3_results)  # En lugar de esto que se fije si uko_results = col_results = dc3_results
+        # Analizamos si los tres algoritmos tuvieron el mismo resultado
+        result = str(False)
+        if col_results == dc3_results:
+            if len(col_results) > 0 and uko_results:
+                result = str(True)
+            elif len(col_results) == 0 and not uko_results:
+                result = str(True)
 
-        out.write(os.path.basename(filename) + "\t" + str(len(t1)) + "\t" + str(
-            len(set(t1))) + "\t" + p + "\t" + "{0:.3f}".format(
-            col_time) + "\t" + "{0:.3f}".format(uko_time) + "\t" + "{0:.3f}".format(
-            dc3_time) + "\t" + str(col_results == dc3_results) + "\t")
+        # escribimos el resultado de la ejecucion en el archivo csv
+        out.write(
+            os.path.basename(filename) + "\t" +
+            str(len(t1)) + "\t" +
+            str(len(set(t1))) + "\t" +
+            "{0:.5f}".format(col_time) + "\t" +
+            "{0:.5f}".format(uko_time + uko_search_time) + "\t" +
+            "{0:.5f}".format(uko_time) + "\t" +
+            "{0:.5f}".format(uko_search_time) + "\t" +
+            "{0:.5f}".format(dc3_time + dc3_search_time) + "\t" +
+            "{0:.5f}".format(dc3_time) + "\t" +
+            "{0:.5f}".format(dc3_search_time) + "\t" +
+            str(col_results == dc3_results) + "\t" +
+            str(len(p)) + "\t" # ESTE TRANSLATE SACA LOS \t Y \n, HABRIA QUE SACARLOS EN LOS ARCHIVOS MEJOR
+        )
+        out.write("\n")
