@@ -6,9 +6,21 @@ import random
 
 sys.path.insert(0, '../ukkonen')
 sys.path.insert(0, '../colussi')
+sys.path.insert(0, '../naive')
+
 from colussi import Colussi
 from ukkonen import Ukkonen
+from naive import Naive
 
+def test_naive(filename, p):
+    start = time.time()
+    f = open(filename)
+    t = f.read()
+    alg1 = Naive(t)
+    results = alg1.match(p)
+    end = time.time()
+    col_time = end - start
+    return col_time, results
 
 def test_dc3(filename, p):
     results_file = "results_file"
@@ -106,14 +118,15 @@ out.write(
     "Archivo" + "\t" +
     "Tamaño" + "\t" +
     "No se que" + "\t" +
-    "Colussi Total" + "\t" +
-    "Ukkonen Total" + "\t" +
-    "Ukkonen constr" + "\t" +
-    "Ukkonen match" + "\t" +
-    "DC3 Total" + "\t" +
-    "DC3 constr" + "\t" +
-    "DC3 match" + "\t" +
-    "Resultado" + "\t" +
+    "Naive" + "\t" +
+    # "Colussi Total" + "\t" +
+    # "Ukkonen Total" + "\t" +
+    # "Ukkonen constr" + "\t" +
+    # "Ukkonen match" + "\t" +
+    # "DC3 Total" + "\t" +
+    # "DC3 constr" + "\t" +
+    # "DC3 match" + "\t" +
+    # "Resultado" + "\t" +
     "Patron" + "\t" +
     "\n"
 )
@@ -130,34 +143,38 @@ for filename in filenames:
         print("Pattern length: " + str(l))
         pos = random.randint(0, len(t1) - 1)
         p = t1[pos:pos + l]
-        print("Testing Colussi ...")
-        col_time, col_results = test_col(filename, p)
-        print("Testing DC3 ...")
-        dc3_search_time, dc3_time, dc3_results = test_dc3(filename, p)
-        print("Testing Ukkonen ...")
-        uko_search_time, uko_time, uko_results = test_uko(filename, p)
+        print("Testing Naive")
+        naive_time, naive_reults = test_naive(filename,p)
+        # print("Testing Colussi ...")
+        # col_time, col_results = test_col(filename, p)
+        # print("Testing DC3 ...")
+        # dc3_search_time, dc3_time, dc3_results = test_dc3(filename, p)
+        # print("Testing Ukkonen ...")
+        # uko_search_time, uko_time, uko_results = test_uko(filename, p)
+        
 
         # Analizamos si los tres algoritmos tuvieron el mismo resultado
-        result = str(False)
-        if col_results == dc3_results:
-            if len(col_results) > 0 and uko_results:
-                result = str(True)
-            elif len(col_results) == 0 and not uko_results:
-                result = str(True)
+        # result = str(False)
+        # if col_results == dc3_results:
+        #     if len(col_results) > 0 and uko_results:
+        #         result = str(True)
+        #     elif len(col_results) == 0 and not uko_results:
+        #         result = str(True)
 
         # escribimos el resultado de la ejecucion en el archivo csv
         out.write(
             os.path.basename(filename) + "\t" +
             str(len(t1)) + "\t" +
             str(len(set(t1))) + "\t" +
-            "{0:.5f}".format(col_time) + "\t" +
-            "{0:.5f}".format(uko_time + uko_search_time) + "\t" +
-            "{0:.5f}".format(uko_time) + "\t" +
-            "{0:.5f}".format(uko_search_time) + "\t" +
-            "{0:.5f}".format(dc3_time + dc3_search_time) + "\t" +
-            "{0:.5f}".format(dc3_time) + "\t" +
-            "{0:.5f}".format(dc3_search_time) + "\t" +
-            str(col_results == dc3_results) + "\t" +
+            "{0:.5f}".format(naive_time) + "\t" +
+            # "{0:.5f}".format(col_time) + "\t" +
+            # "{0:.5f}".format(uko_time + uko_search_time) + "\t" +
+            # "{0:.5f}".format(uko_time) + "\t" +
+            # "{0:.5f}".format(uko_search_time) + "\t" +
+            # "{0:.5f}".format(dc3_time + dc3_search_time) + "\t" +
+            # "{0:.5f}".format(dc3_time) + "\t" +
+            # "{0:.5f}".format(dc3_search_time) + "\t" +
+            # str(col_results == dc3_results) + "\t" +
             str(len(p)) + "\t" # porque al imprimir todos los caracteres, habias /n y /t y se desformateaba el archivo
         )
         out.write("\n")
