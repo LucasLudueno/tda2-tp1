@@ -135,20 +135,21 @@ out.write(
     "Archivo" + "\t" +
     "Tamaño" + "\t" +
     "Tamaño del diccionario" + "\t" +
-    # "Naive" + "\t" +
-    # "Colussi Total" + "\t" +
-    # "Ukkonen Total" + "\t" +
-    # "Ukkonen constr" + "\t" +
-    # "Ukkonen match" + "\t" +
+    "Naive" + "\t" +
+    "Colussi Total" + "\t" +
+
+    "Ukkonen Total" + "\t" +
+    "Ukkonen constr" + "\t" +
+    "Ukkonen match" + "\t" +
     
     "DC3 python Total" + "\t" +
     "DC3 python constr" + "\t" +
     "DC3 python match" + "\t" +
 
-    # "DC3 C++ Total" + "\t" +
-    # "DC3 C++ constr" + "\t" +
-    # "DC3 C++ match" + "\t" +
-    # "Resultado" + "\t" +
+    "DC3 C++ Total" + "\t" +
+    "DC3 C++ constr" + "\t" +
+    "DC3 C++ match" + "\t" +
+    "Resultado" + "\t" +
     "Patron" + "\t" +
     "\n"
 )
@@ -166,14 +167,15 @@ for filename in filenames:
         pos = random.randint(0, len(t1) - 1)
         p = t1[pos:pos + l]
         print("Testing Naive")
-        # naive_time, naive_reults = test_naive(filename,p)
-        # print("Testing Colussi ...")
-        # col_time, col_results = test_col(filename, p)
-        # print("Testing C++ DC3 ...")
-        # dc3_search_time, dc3_time, dc3_results = test_dc3(filename, p)
+        naive_time, naive_reults = test_naive(filename,p)
+        print("Testing Colussi ...")
+        col_time, col_results = test_col(filename, p)
+        print("Testing C++ DC3 ...")
+        dc3_search_time, dc3_time, dc3_results = test_dc3(filename, p)
+        print("Testing Python DC3 ...")
         dc3_python_search_time, dc3_python_time, dc3_python_results = test_dc3_python(filename, p)
-        # print("Testing Ukkonen ...")
-        # uko_search_time, uko_time, uko_results = test_uko(filename, p)
+        print("Testing Ukkonen ...")
+        uko_search_time, uko_time, uko_results = test_uko(filename, p)
         
 
         # Analizamos si los tres algoritmos tuvieron el mismo resultado
@@ -189,21 +191,21 @@ for filename in filenames:
             os.path.basename(filename) + "\t" +
             str(len(t1)) + "\t" +
             str(len(set(t1))) + "\t" +
-            # "{0:.5f}".format(naive_time) + "\t" +
-            # "{0:.5f}".format(col_time) + "\t" +
-            # "{0:.5f}".format(uko_time + uko_search_time) + "\t" +
-            # "{0:.5f}".format(uko_time) + "\t" +
-            # "{0:.5f}".format(uko_search_time) + "\t" +
+            "{0:.5f}".format(naive_time) + "\t" +
+            "{0:.5f}".format(col_time) + "\t" +
+            "{0:.5f}".format(uko_time + uko_search_time) + "\t" +
+            "{0:.5f}".format(uko_time) + "\t" +
+            "{0:.5f}".format(uko_search_time) + "\t" +
             
             "{0:.5f}".format(dc3_python_time + dc3_python_search_time) + "\t" +
             "{0:.5f}".format(dc3_python_time) + "\t" +
             "{0:.5f}".format(dc3_python_search_time) + "\t" +
 
-            # "{0:.5f}".format(dc3_time + dc3_search_time) + "\t" +
-            # "{0:.5f}".format(dc3_time) + "\t" +
-            # "{0:.5f}".format(dc3_search_time) + "\t" +
+            "{0:.5f}".format(dc3_time + dc3_search_time) + "\t" +
+            "{0:.5f}".format(dc3_time) + "\t" +
+            "{0:.5f}".format(dc3_search_time) + "\t" +
 
-            # str(col_results == dc3_results) + "\t" +
-            str(len(p)) + "\t" # porque al imprimir todos los caracteres, habias /n y /t y se desformateaba el archivo
+            str(col_results == dc3_results) + "\t" +
+            str(len(p)) + "\t"
         )
         out.write("\n")
