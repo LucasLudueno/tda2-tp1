@@ -6,8 +6,10 @@ import random
 
 sys.path.insert(0, '../ukkonen')
 sys.path.insert(0, '../colussi')
+sys.path.insert(0, '../dc3')
 sys.path.insert(0, '../naive')
 
+from dc3 import DC3
 from colussi import Colussi
 from ukkonen import Ukkonen
 from naive import Naive
@@ -21,6 +23,21 @@ def test_naive(filename, p):
     end = time.time()
     col_time = end - start
     return col_time, results
+
+def test_dc3_python(filename, p):
+    start = time.time()
+    f = open(filename)
+    t = f.read()
+    alg2 = DC3(t)
+    end = time.time()
+    uko_time = end - start
+
+    start_again = time.time()
+    results = alg2.search(p)
+    end_again = time.time()
+    search_time = end_again - start_again
+
+    return search_time, uko_time, results
 
 def test_dc3(filename, p):
     results_file = "results_file"
@@ -117,15 +134,20 @@ import os
 out.write(
     "Archivo" + "\t" +
     "Tamaño" + "\t" +
-    "No se que" + "\t" +
-    "Naive" + "\t" +
+    "Tamaño del diccionario" + "\t" +
+    # "Naive" + "\t" +
     # "Colussi Total" + "\t" +
     # "Ukkonen Total" + "\t" +
     # "Ukkonen constr" + "\t" +
     # "Ukkonen match" + "\t" +
-    # "DC3 Total" + "\t" +
-    # "DC3 constr" + "\t" +
-    # "DC3 match" + "\t" +
+    
+    "DC3 python Total" + "\t" +
+    "DC3 python constr" + "\t" +
+    "DC3 python match" + "\t" +
+
+    # "DC3 C++ Total" + "\t" +
+    # "DC3 C++ constr" + "\t" +
+    # "DC3 C++ match" + "\t" +
     # "Resultado" + "\t" +
     "Patron" + "\t" +
     "\n"
@@ -144,11 +166,12 @@ for filename in filenames:
         pos = random.randint(0, len(t1) - 1)
         p = t1[pos:pos + l]
         print("Testing Naive")
-        naive_time, naive_reults = test_naive(filename,p)
+        # naive_time, naive_reults = test_naive(filename,p)
         # print("Testing Colussi ...")
         # col_time, col_results = test_col(filename, p)
-        # print("Testing DC3 ...")
+        # print("Testing C++ DC3 ...")
         # dc3_search_time, dc3_time, dc3_results = test_dc3(filename, p)
+        dc3_python_search_time, dc3_python_time, dc3_python_results = test_dc3_python(filename, p)
         # print("Testing Ukkonen ...")
         # uko_search_time, uko_time, uko_results = test_uko(filename, p)
         
@@ -166,14 +189,20 @@ for filename in filenames:
             os.path.basename(filename) + "\t" +
             str(len(t1)) + "\t" +
             str(len(set(t1))) + "\t" +
-            "{0:.5f}".format(naive_time) + "\t" +
+            # "{0:.5f}".format(naive_time) + "\t" +
             # "{0:.5f}".format(col_time) + "\t" +
             # "{0:.5f}".format(uko_time + uko_search_time) + "\t" +
             # "{0:.5f}".format(uko_time) + "\t" +
             # "{0:.5f}".format(uko_search_time) + "\t" +
+            
+            "{0:.5f}".format(dc3_python_time + dc3_python_search_time) + "\t" +
+            "{0:.5f}".format(dc3_python_time) + "\t" +
+            "{0:.5f}".format(dc3_python_search_time) + "\t" +
+
             # "{0:.5f}".format(dc3_time + dc3_search_time) + "\t" +
             # "{0:.5f}".format(dc3_time) + "\t" +
             # "{0:.5f}".format(dc3_search_time) + "\t" +
+
             # str(col_results == dc3_results) + "\t" +
             str(len(p)) + "\t" # porque al imprimir todos los caracteres, habias /n y /t y se desformateaba el archivo
         )
